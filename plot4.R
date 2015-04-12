@@ -11,8 +11,9 @@ plot4<-function(){
         #add a new col called Dtime that contained converted time contents that from
         #col "Date" and "Time"        
         Datetime<- strptime(paste(DTdp$Date,DTdp$Time), "%d/%m/%Y %H:%M:%S")
-        mutate(DTdp, Dtime=as.POSIXct(Datetime))
+        DTdp<-mutate(DTdp, Dtime=as.POSIXct(Datetime))
         #drawing the plot4 
+        png(file= "plot4.png", width = 480, height = 480)
         par(mfrow = c(2,2))
         ##topleft drawing
         plot(DTdp$Dtime,DTdp$Global_active_power,type="l",xlab="",ylab="Global Active Power(kilowatts)")
@@ -20,13 +21,11 @@ plot4<-function(){
         plot(DTdp$Dtime,DTdp$Voltage,type="l",xlab="datetime",ylab="Voltage")
         ##bottomleft drawing
         plot(DTdp$Dtime,DTdp$Sub_metering_1,type="l",xlab="",ylab="Energy sub metering")
-        points(DTdp$Dtime,DTdp$Sub_metering_2,type="l",col="red")
-        points(DTdp$Dtime,DTdp$Sub_metering_3,type="l",col="blue")
-        legend("topright",pch="-",col= c("black","red","blue"),legend=  c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),cex = 0.5)
+        lines(DTdp$Dtime,DTdp$Sub_metering_2,type="l",col="red")
+        lines(DTdp$Dtime,DTdp$Sub_metering_3,type="l",col="blue")
+        legend("topright",lwd = 0.75,col= c("black","red","blue"),legend=  c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),cex = 0.75)
         ##bottomright drawing
         plot(DTdp$Dtime,DTdp$Global_reactive_power,type="l",xlab="datetime",ylab="Global_reactive_power")
-        #copy to plot4.png 
-        dev.copy(png,file="plot4.png")
         dev.off()
         
 }

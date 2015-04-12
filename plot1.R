@@ -3,7 +3,8 @@ plot1<-function(){
         library(data.table)
         dtime<- difftime(as.POSIXct("2007-02-03"),as.POSIXct("2007-02-01"),units="mins")
         RowstoRead <- as.numeric(dtime)
-        DT<-fread("household_power_consumption.txt",skip="1/2/2007",nrows=RowstoRead,na.string=c("?",""))
+        # Data file was stored in default directory
+        DT<-fread("household_power_consumption.txt",skip="1/2/2007",nrows=RowstoRead,na.strings = c("?",""))
         #add name to subset
         setnames(DT, colnames(fread("household_power_consumption.txt", nrows=0)))
         library(dplyr)

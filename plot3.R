@@ -11,14 +11,13 @@ plot3<-function(){
         #add a new col called Dtime that contained converted time contents that from
         #col "Date" and "Time"        
         Datetime<- strptime(paste(DTdp$Date,DTdp$Time), "%d/%m/%Y %H:%M:%S")
-        mutate(DTdp, Dtime=as.POSIXct(Datetime))
+        DTdp<-mutate(DTdp, Dtime=as.POSIXct(Datetime))
         #drawing the plot3 
+        png(file= "plot3.png", width = 480, height = 480)
         plot(DTdp$Dtime,DTdp$Sub_metering_1,type="l",xlab="",ylab="Energy sub metering")
-        points(DTdp$Dtime,DTdp$Sub_metering_2,type="l",col="red")
-        points(DTdp$Dtime,DTdp$Sub_metering_3,type="l",col="blue")
-        legend("topright",pch="-",col= c("black","red","blue"),legend=  c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
-        #copy to plot3.png 
-        dev.copy(png,file="plot3.png")
+        lines(DTdp$Dtime,DTdp$Sub_metering_2,type="l",col="red")
+        lines(DTdp$Dtime,DTdp$Sub_metering_3,type="l",col="blue")
+        legend("topright",lwd=0.75,col= c("black","red","blue"),legend=  c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),cex = 0.75)
         dev.off()
         
 }
