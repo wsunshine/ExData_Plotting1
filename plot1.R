@@ -12,11 +12,10 @@ plot1<-function(){
         #add a new col called Dtime that contained converted time contents that from
         #col "Date" and "Time"        
         Datetime<- strptime(paste(DTdp$Date,DTdp$Time), "%d/%m/%Y %H:%M:%S")
-        mutate(DTdp, Dtime=as.POSIXct(Datetime))
+        DTdp<-mutate(DTdp, Dtime=as.POSIXct(Datetime))
         #drawing the plot1 Golbal Active Power
+        png(file= "plot1.png", width = 480, height = 480)
         hist(DTdp$Global_active_power,xlab="Global Active Power(kilowatts)",main="Global Active Power",col="red")
-        #copy to plot1.png 
-        dev.copy(png,file="plot1.png")
         dev.off()
         
 }
